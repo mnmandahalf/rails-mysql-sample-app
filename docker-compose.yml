@@ -1,0 +1,17 @@
+version: "3"
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 3000:80
+    tty: true
+    stdin_open: true
+  db:
+    image: mysql:8.0.33
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
