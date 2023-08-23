@@ -146,6 +146,8 @@ GEM
     rake (13.0.6)
     reline (0.3.8)
       io-console (~> 0.5)
+    strong_migrations (1.6.1)
+      activerecord (>= 5.2)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)
@@ -164,6 +166,7 @@ DEPENDENCIES
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.7)
+  strong_migrations
   tzinfo-data
 
 RUBY VERSION
