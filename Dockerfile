@@ -3,6 +3,10 @@ RUN mkdir /app
 WORKDIR /app
 ARG _ARM_ARCH="arm-unknown-linux-gnu"
 
+RUN apt-get update && apt-get install -y \
+  default-mysql-client \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
