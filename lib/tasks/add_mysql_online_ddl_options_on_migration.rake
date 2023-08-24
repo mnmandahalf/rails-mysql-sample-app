@@ -13,7 +13,8 @@ module CustomExecuteOverride
   def add_algorithm_instant(sql)
     if supported_sql_for_check_online_ddl?(sql)
       sql = sql.gsub(/,\s*ALGORITHM\s*=\s*\w+\s*/i, "").squeeze(" ").strip
-      sql = "#{sql.chomp(';')}, ALGORITHM=INSTANT;"
+      comma = needs_comma?(sql) ? "," : ""
+      sql = "#{sql.chomp(';')}#{comma} ALGORITHM=INSTANT;"
     end
     sql
   end
@@ -21,9 +22,14 @@ module CustomExecuteOverride
   def add_lock_none(sql)
     if supported_sql_for_check_online_ddl?(sql)
       sql = sql.gsub(/,\s*LOCK\s*=\s*\w+\s*/i, "").squeeze(" ").strip
-      sql = "#{sql.chomp(';')}, LOCK=NONE;"
+      comma = needs_comma?(sql) ? "," : ""
+      sql = "#{sql.chomp(';')}#{comma} LOCK=NONE;"
     end
     sql
+  end
+
+  def needs_comma?(sql)
+    sql.start_with?("ALTER")
   end
 
   def supported_sql_for_check_online_ddl?(sql)
